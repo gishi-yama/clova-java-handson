@@ -23,7 +23,7 @@ public class IntentHandler {
   CEKResponse handleLaunch() {
     // Clovaに話させる。スキル(Session)は終了しない
     return CEKResponse.builder()
-      .outputSpeech(OutputSpeech.text("○○の環境を教えて、と聞いてください。"))
+      .outputSpeech(OutputSpeech.text("部屋の名前を使って、どこそこの環境を教えて、と聞いてください。"))
       .shouldEndSession(false)
       .build();
   }
@@ -35,7 +35,7 @@ public class IntentHandler {
     // 聞き取れていなければ 聞き取れませんでした を結果にする
     String outputSpeechText = area
       .map(value -> callbackEnv(value))
-      .orElse("聞き取れませんでした。");
+      .orElse("場所が聞き取れないか、登録されていない場所です。");
 
     // Clovaに callbackEnv の結果を話させる。スキル(Session）は終了しない
     return CEKResponse.builder()
@@ -49,11 +49,11 @@ public class IntentHandler {
     switch (area) {
       case "食堂":
         // 変更箇所, "******" の実際の値はハンズオン時に提示する
-        return replyRoomInfo("b48a373d768e6f54330a236a6b118137");
+        return replyRoomInfo("******");
       case "学生ホール":
         return "二酸化炭素濃度は1500ppm、温度は25度です。";
       default:
-        return "ごめんなさい、その場所は登録されていません。";
+        return "場所が聞き取れないか、登録されていない場所です。";
     }
   }
 
