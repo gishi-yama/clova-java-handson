@@ -34,8 +34,8 @@ public class IntentHandler {
     // スロットタイプが聞き取れていれば callbackEnvメソッド を呼び出す
     // 聞き取れていなければ 聞き取れませんでした を結果にする
     String outputSpeechText = area
-      .map(value -> callbackEnv(value))
-      .orElse("場所が聞き取れないか、登録されていない場所です。");
+      .map(this::callbackEnv)
+      .orElse("聞き取れませんでした");
 
     // Clovaに callbackEnv の結果を話させる。スキル(Session）は終了しない
     return CEKResponse.builder()
@@ -53,7 +53,7 @@ public class IntentHandler {
       case "学生ホール":
         return "二酸化炭素濃度は1500ppm、温度は25度です。";
       default:
-        return "場所が聞き取れないか、登録されていない場所です。";
+        return "";
     }
   }
 
